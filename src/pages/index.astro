@@ -1,23 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
 ---
 
 <Layout title="Welcome to Day Formater">
 	<main>
 		<h1>Welcome to <span class="text-gradient">Day Formater</span></h1>
 		<div class="box flex">
-			<textarea name="" id="" cols="30" rows="10"></textarea>
+			<textarea class="intputArea" name="" id="" cols="30" rows="10"></textarea>
 			<div class="text">
-				<p>日付を含むテキストを貼り付けてください。すべて+7日します。</p>
+				<p>以下のフォーマットの日付をすべて+7日します。</p>
 				<div class="sample">
-					<div class="head">例：</div>
 					<div class="body">6/12<br/><br/>6/13<br/><br>6/14<br/><br/>6/15</div>
 				</div>
 			</div>
 		</div>
-		<button>変換</button>
+		<button class="convertBtn">変換</button>
 		<div class="box">
-			<textarea name="" id="" cols="30" rows="10">結果</textarea>
+			<textarea class="resultArea" name="" id="" cols="30" rows="10">結果が出ます</textarea>
 		</div>
 	</main>
 </Layout>
@@ -47,6 +47,9 @@ import Layout from '../layouts/Layout.astro';
 		background-color: white;
 		padding: 1rem;
 		border-radius: 0.4rem;
+		textarea {
+			height: 250px;
+		}
 	}
 	.flex {
 		display: flex;
@@ -64,16 +67,27 @@ import Layout from '../layouts/Layout.astro';
 			}
 		}
 	}
-	.instructions code {
-		font-size: 0.875em;
-		font-weight: bold;
-		background: rgba(var(--accent), 12%);
-		color: rgb(var(--accent));
-		border-radius: 4px;
-		padding: 0.3em 0.45em;
+	textarea {
+		font-size: 13px;
 	}
 	.instructions strong {
 		color: rgb(var(--accent));
 	}
 	
 </style>
+
+<script>
+	const convert = () => {
+		const text = document.querySelector('.intputArea').value;
+		if (text === '') return alert('テキストを入力してください')
+		const lines = text.split('\n\n');
+		const result = lines.map(line => {
+			const date = new Date(line);
+			date.setDate(date.getDate() + 7);
+			return `${date.getMonth() + 1}/${date.getDate()}`;
+		}).join('\n\n');
+		document.querySelector('.resultArea').value = result;
+	}
+	const convertBtn = document.querySelector('.convertBtn');
+	convertBtn?.addEventListener('click', convert);
+</script>

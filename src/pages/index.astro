@@ -1,41 +1,28 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title="Welcome to Day Formater">
 	<main>
-		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
-		<p class="instructions">
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
-		</p>
-		<ul role="list" class="link-card-grid">
-			<Card
-				href="https://docs.astro.build/"
-				title="Documentation"
-				body="Learn how Astro works and explore the official API docs."
-			/>
-			<Card
-				href="https://astro.build/integrations/"
-				title="Integrations"
-				body="Supercharge your project with new frameworks and libraries."
-			/>
-			<Card
-				href="https://astro.build/themes/"
-				title="Themes"
-				body="Explore a galaxy of community-built starter themes."
-			/>
-			<Card
-				href="https://astro.build/chat/"
-				title="Community"
-				body="Come say hi to our amazing Discord community. ❤️"
-			/>
-		</ul>
+		<h1>Welcome to <span class="text-gradient">Day Formater</span></h1>
+		<div class="box flex">
+			<textarea name="" id="" cols="30" rows="10"></textarea>
+			<div class="text">
+				<p>日付を含むテキストを貼り付けてください。すべて+7日します。</p>
+				<div class="sample">
+					<div class="head">例：</div>
+					<div class="body">6/12<br/><br/>6/13<br/><br>6/14<br/><br/>6/15</div>
+				</div>
+			</div>
+		</div>
+		<button>変換</button>
+		<div class="box">
+			<textarea name="" id="" cols="30" rows="10">結果</textarea>
+		</div>
 	</main>
 </Layout>
 
-<style>
+<style lang="scss">
 	main {
 		margin: auto;
 		padding: 1.5rem;
@@ -53,13 +40,29 @@ import Card from '../components/Card.astro';
 		background-size: 400%;
 		background-position: 0%;
 	}
-	.instructions {
+	.box {
 		line-height: 1.6;
 		margin: 1rem 0;
 		border: 1px solid rgba(var(--accent), 25%);
 		background-color: white;
 		padding: 1rem;
 		border-radius: 0.4rem;
+	}
+	.flex {
+		display: flex;
+		align-items: space-between;
+		gap: 20px;
+		textarea {
+			flex-basis: 50%;
+		}
+		.text {
+			.sample {
+				font-size: 13px;
+				line-height: 1.2;
+				color: #666;
+				display: flex;
+			}
+		}
 	}
 	.instructions code {
 		font-size: 0.875em;
@@ -72,10 +75,5 @@ import Card from '../components/Card.astro';
 	.instructions strong {
 		color: rgb(var(--accent));
 	}
-	.link-card-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
-		gap: 1rem;
-		padding: 0;
-	}
+	
 </style>

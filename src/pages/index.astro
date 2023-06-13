@@ -3,22 +3,25 @@ import Layout from '../layouts/Layout.astro';
 
 ---
 
-<Layout title="Welcome to Day Formatter">
+<Layout title="Day Formatter for Streamer">
 	<main>
-		<h1>Welcome to <span class="text-gradient">Day Formatter</span></h1>
-		<div class="box flex">
-			<textarea class="intputArea" name="" id="" cols="30" rows="10"></textarea>
-			<div class="text">
-				<p>以下のフォーマットの日付をすべて+7日します。</p>
-				<div class="sample">
-					<div class="body">6/12<br/><br/>6/13<br/><br>6/14<br/><br/>6/15</div>
-				</div>
+		<h1>Welcome to <br><span class="text-gradient">Day Formatter</span></h1>
+		<div class="text">
+			<p>以下ようなフォーマットの日付をすべて+7日して出力します。</p>
+			<div class="sample">
+				6/12<br/><br/>6/13<br/><br>6/14<br/><br/>6/15
 			</div>
+		</div>
+		<div class="box">
+			<textarea class="intputArea" name="" id="" cols="30" rows="10" placeholder="貼り付けてください。"></textarea>
 		</div>
 		<button class="convertBtn">変換</button>
 		<div class="box">
 			<textarea class="resultArea" name="" id="" cols="30" rows="10">結果が出ます</textarea>
 		</div>
+		<footer>
+			<p>Created by <a href="https://numecha.vercel.app/" target="_blank" rel="noopener noreferrer">Numecha</a>.</p>
+		</footer>
 	</main>
 </Layout>
 
@@ -32,6 +35,7 @@ import Layout from '../layouts/Layout.astro';
 		font-size: 3rem;
 		font-weight: 800;
 		margin: 0;
+		text-align: center;
 	}
 	.text-gradient {
 		background-image: var(--accent-gradient);
@@ -51,20 +55,12 @@ import Layout from '../layouts/Layout.astro';
 			height: 250px;
 		}
 	}
-	.flex {
-		display: flex;
-		align-items: space-between;
-		gap: 20px;
-		textarea {
-			flex-basis: 50%;
-		}
-		.text {
-			.sample {
-				font-size: 13px;
-				line-height: 1.2;
-				color: #666;
-				display: flex;
-			}
+	.text {
+		text-align: center;
+		.sample {
+			font-size: 13px;
+			line-height: 1.2;
+			color: #666;
 		}
 	}
 	textarea {
@@ -72,6 +68,10 @@ import Layout from '../layouts/Layout.astro';
 	}
 	.instructions strong {
 		color: rgb(var(--accent));
+	}
+	footer {
+		margin-top: 30px;
+		text-align: center;
 	}
 	
 </style>

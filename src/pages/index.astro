@@ -9,7 +9,7 @@ import Layout from '../layouts/Layout.astro';
 		<div class="text">
 			<p>以下ようなフォーマットの日付をすべて+7日して出力します。</p>
 			<div class="sample">
-				6/12<br/><br/>6/13<br/><br>6/14<br/><br/>6/15
+				06.26<br/><br/>06.27<br/><br>06.28<br/><br/>06.29
 			</div>
 		</div>
 		<div class="box">
@@ -77,6 +77,9 @@ import Layout from '../layouts/Layout.astro';
 </style>
 
 <script>
+	const padZero = (num: number) => {
+		return ('0' + num).slice(-2);
+	}
 	const convert = () => {
 		const text = document.querySelector('.intputArea').value;
 		if (text === '') return alert('テキストを入力してください')
@@ -84,7 +87,7 @@ import Layout from '../layouts/Layout.astro';
 		const result = lines.map(line => {
 			const date = new Date(line);
 			date.setDate(date.getDate() + 7);
-			return `${date.getMonth() + 1}/${date.getDate()}`;
+			return `${padZero(date.getMonth() + 1)}.${padZero(date.getDate())}`;
 		}).join('\n\n');
 		document.querySelector('.resultArea').value = result;
 	}

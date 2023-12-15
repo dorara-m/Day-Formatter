@@ -1,23 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
 ---
 
 <Layout title="Day Formatter for Streamer">
 	<main>
 		<h1>Welcome to <br><span class="text-gradient">Day Formatter</span></h1>
 		<div class="text">
-			<p>以下ようなフォーマットの日付をすべて+7日して出力します。</p>
-			<div class="sample">
-				06.26<br/><br/>06.27<br/><br>06.28<br/><br/>06.29
-			</div>
+			<p>日付を与えて、改行込みのフォーマットで1週間分の日付を生成します。</p>
 		</div>
 		<div class="box">
-			<textarea class="intputArea" name="" id="" cols="30" rows="10" placeholder="貼り付けてください。"></textarea>
+			<input type="date" id="startDate">
 		</div>
-		<button class="convertBtn">変換</button>
+		<button id="convertBtn">生成！</button>
 		<div class="box">
-			<textarea class="resultArea" name="" id="" cols="30" rows="10">結果が出ます</textarea>
+			<textarea id="output" cols="30" rows="10">結果が出ます</textarea>
 		</div>
 		<footer>
 			<p>Created by <a href="https://numecha.vercel.app/" target="_blank" rel="noopener noreferrer">Numecha</a>.</p>
@@ -52,7 +48,7 @@ import Layout from '../layouts/Layout.astro';
 		padding: 1rem;
 		border-radius: 0.4rem;
 		textarea {
-			height: 250px;
+			height: 280px;
 		}
 	}
 	.text {
@@ -77,20 +73,30 @@ import Layout from '../layouts/Layout.astro';
 </style>
 
 <script>
-	const padZero = (num: number) => {
-		return ('0' + num).slice(-2);
+	const startDateInput = document.getElementById('startDate') as HTMLInputElement;
+	const output = document.getElementById('output')as HTMLInputElement
+	// 今日の日付をデフォルトで入れる
+	const today = new Date().toISOString().split('T')[0];
+	startDateInput.value = today;
+	// 1週間分の日付を生成
+	function generateWeekDates() {
+		const startDate = new Date(startDateInput.value);
+		const dates: Date[] = [];
+		// 1週間分の日付を生成
+		for (let i = 0; i < 7; i++) {
+			const currentDate = new Date(startDate);
+			currentDate.setDate(startDate.getDate() + i);
+			dates.push(currentDate);
+		}
+		// フォーマットされた日付文字列を生成
+		const formattedDates = dates.map(date => {
+			const month = (date.getMonth() + 1).toString().padStart(2, '0');
+			const day = date.getDate().toString().padStart(2, '0');
+			return `${month}.${day}`;
+		});
+		// 改行を含んだフォーマットに整形
+		output.value = formattedDates.join('\n\n');
 	}
-	const convert = () => {
-		const text = document.querySelector('.intputArea').value;
-		if (text === '') return alert('テキストを入力してください')
-		const lines = text.split('\n\n');
-		const result = lines.map(line => {
-			const date = new Date(line);
-			date.setDate(date.getDate() + 7);
-			return `${padZero(date.getMonth() + 1)}.${padZero(date.getDate())}`;
-		}).join('\n\n');
-		document.querySelector('.resultArea').value = result;
-	}
-	const convertBtn = document.querySelector('.convertBtn');
-	convertBtn?.addEventListener('click', convert);
+	const convertBtn = document.getElementById('convertBtn');
+	convertBtn?.addEventListener('click', () => generateWeekDates());
 </script>
